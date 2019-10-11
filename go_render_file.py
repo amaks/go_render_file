@@ -18,12 +18,19 @@ class GoRenderFileCommand(sublime_plugin.TextCommand):
 
       if '/' in file_name:
         split_file_name = file_name.split('/')
+
         if len(split_file_name) == 2:
           new_file_name = split_file_name[0] + '/_' + split_file_name[1]
         else:
           new_file_name = split_file_name[0] + '/' + split_file_name[1] + '/_' + split_file_name[2]
 
-        file_path = rails_view_path + '/' + new_file_name
+        if split_file_name[0] in rails_view_path:
+          file_path = rails_view_path.replace(split_file_name[0], '') + '/' + new_file_name
+        else:
+          if rails_view_path.split('/')[-2] == 'views':
+            file_path = rails_view_path.replace(rails_view_path.split('/')[-1], '') + '/' + new_file_name
+          else:
+            file_path = rails_view_path + '/' + new_file_name
       else:
         new_file_name = file_name
         file_path = source_path + '/_' + new_file_name
