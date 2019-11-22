@@ -13,7 +13,7 @@ class OpenViewFromViewCommand(sublime_plugin.TextCommand):
       self.open_files(file_path)
 
   def open_files(self, file_path):
-    extensions = ['haml', 'html.erb', 'html.slim']
+    extensions = ['haml', 'html.erb', 'html.slim', 'pdf.erb']
 
     for i in extensions:
       if os.path.exists(file_path + '.' + i):
